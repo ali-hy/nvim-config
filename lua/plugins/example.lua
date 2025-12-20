@@ -9,6 +9,8 @@ if true then return {} end
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
+
+  --- AUTOMATICALLY GENERATED ---
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
 
@@ -26,9 +28,6 @@ return {
     -- opts will be merged with the parent spec
     opts = { use_diagnostic_signs = true },
   },
-
-  -- disable trouble
-  { "folke/trouble.nvim", enabled = false },
 
   -- override nvim-cmp and add cmp-emoji
   {

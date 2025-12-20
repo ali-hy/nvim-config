@@ -10,23 +10,31 @@ return {
     local finders = require("telescope.finders")
     local conf = require("telescope.config").values
 
+    local actions = require("telescope.actions")
+    local actions_state = require("telescope.actions.state")
+
     local colors = function(opts)
       opts = opts or {}
-      print("options: ", opts)
       local status, err = pcall(function()
-        pickers.new(opts, {
+        local pick = pickers.new(opts, {
           prompt_title = "colors",
-          finder = finders.new_table({
-            results = { "red", "green", "blue" },
-          }),
+          finder = finders.new_oneshot_job({ "find", ".", "-type", "d" }, opts),
           sorter = conf.generic_sorter(opts),
+          attach_mappings = function(prompt_bufnr, map)
+            actions.select_default:replace(function()
+              actions.close(prompt_bufnr)
+              local selection = actions_state.get_selected_entry()
+              vim.cmd("cd " .. selection[1])
+            end)
+            return true
+          end,
         })
+        pick:find()
       end)
-      print("Status of pcall = ", status)
     end
 
     vim.keymap.set("n", "<leader>fd", function()
-      colors()
+      colors(require("telescope.themes").get_dropdown())
     end, { desc = "Find directory" })
   end,
 }
