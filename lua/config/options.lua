@@ -7,8 +7,12 @@ vim.opt.colorcolumn = "80"
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
+
+local homePath = os.getenv("HOME") or os.getenv("LOCALAPPDATA")
+if homePath then
+  vim.opt.undodir = homePath .. "/.vim/undodir"
+  vim.opt.undofile = true
+end
 
 vim.opt.termguicolors = true
 
