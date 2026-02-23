@@ -35,8 +35,6 @@ return {
 
     -- Remaps
     local builtin = require("telescope.builtin")
-    vim.keymap.del("n", "<leader><leader>")
-    vim.keymap.set("n", "<leader><leader>", builtin.git_files, { desc = "Find git files" })
 
     vim.keymap.set("n", "<leader>fd", function()
       colors(require("telescope.themes").get_dropdown())
